@@ -146,17 +146,13 @@ export function Component(): JSX.Element {
         <div className={styles.oneshotContainer}>
             <div className={styles.oneshotTopSection}>
                 <SettingsButton className={styles.settingsButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
-                <h1 className={styles.oneshotTitle}>Ask your data</h1>
+                <h1 className={styles.oneshotTitle}>劳法智问</h1>
                 <div className={styles.oneshotQuestionInput}>
-                    <QuestionInput
-                        placeholder="Example: Does my plan cover annual eye exams?"
-                        disabled={isLoading}
-                        onSend={question => makeApiRequest(question)}
-                    />
+                    <QuestionInput placeholder="示例：试用期期间解除劳动合同有哪些规定？" disabled={isLoading} onSend={question => makeApiRequest(question)} />
                 </div>
             </div>
             <div className={styles.oneshotBottomSection}>
-                {isLoading && <Spinner label="Generating answer" />}
+                {isLoading && <Spinner label="生成答案" />}
                 {!lastQuestionRef.current && <ExampleList onExampleClicked={onExampleClicked} />}
                 {!isLoading && answer && !error && (
                     <div className={styles.oneshotAnswerContainer}>
@@ -187,18 +183,18 @@ export function Component(): JSX.Element {
             </div>
 
             <Panel
-                headerText="Configure answer generation"
+                headerText="设置答案生成"
                 isOpen={isConfigPanelOpen}
                 isBlocking={false}
                 onDismiss={() => setIsConfigPanelOpen(false)}
-                closeButtonAriaLabel="Close"
-                onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
+                closeButtonAriaLabel="关闭"
+                onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>关闭</DefaultButton>}
                 isFooterAtBottom={true}
             >
                 <TextField
                     className={styles.oneshotSettingsSeparator}
                     defaultValue={promptTemplate}
-                    label="Override prompt template"
+                    label="设置提示模板"
                     multiline
                     autoAdjustHeight
                     onChange={onPromptTemplateChange}
@@ -206,23 +202,23 @@ export function Component(): JSX.Element {
 
                 <SpinButton
                     className={styles.oneshotSettingsSeparator}
-                    label="Retrieve this many search results:"
+                    label="检索搜索结果的数量"
                     min={1}
                     max={50}
                     defaultValue={retrieveCount.toString()}
                     onChange={onRetrieveCountChange}
                 />
-                <TextField className={styles.oneshotSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
+                <TextField className={styles.oneshotSettingsSeparator} label="排除类别" onChange={onExcludeCategoryChanged} />
                 <Checkbox
                     className={styles.oneshotSettingsSeparator}
                     checked={useSemanticRanker}
-                    label="Use semantic ranker for retrieval"
+                    label="使用语义排名器进行检索"
                     onChange={onUseSemanticRankerChange}
                 />
                 <Checkbox
                     className={styles.oneshotSettingsSeparator}
                     checked={useSemanticCaptions}
-                    label="Use query-contextual summaries instead of whole documents"
+                    label="使用与查询上下文相关的摘要，而不是整个文档"
                     onChange={onUseSemanticCaptionsChange}
                     disabled={!useSemanticRanker}
                 />
@@ -246,11 +242,11 @@ export function Component(): JSX.Element {
                 )}
                 <Dropdown
                     className={styles.oneshotSettingsSeparator}
-                    label="Retrieval mode"
+                    label="检索模式"
                     options={[
-                        { key: "hybrid", text: "Vectors + Text (Hybrid)", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
-                        { key: "vectors", text: "Vectors", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
-                        { key: "text", text: "Text", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text }
+                        { key: "hybrid", text: "向量 + 文本（混合）", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
+                        { key: "vectors", text: "向量", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
+                        { key: "text", text: "文本", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text }
                     ]}
                     required
                     onChange={onRetrievalModeChange}

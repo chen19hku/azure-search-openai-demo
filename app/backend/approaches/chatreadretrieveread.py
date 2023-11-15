@@ -27,35 +27,38 @@ class ChatReadRetrieveReadApproach(Approach):
     top documents from search, then constructs a prompt with them, and then uses OpenAI to generate an completion
     (answer) with that prompt.
     """
-    system_message_chat_conversation = """Assistant helps the company employees with their healthcare plan questions, and questions about the employee handbook. Be brief in your answers.
-Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
-For tabular information return it as an html table. Do not return markdown format. If the question is not in English, answer in the language used in the question.
-Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brackets to reference the source, for example [info1.txt]. Don't combine sources, list each source separately, for example [info1.txt][info2.pdf].
+    system_message_chat_conversation = """
+    助手帮助公司员工或人力资源经理解答有关劳动法律法规的问题。请简洁回答问题。
+仅使用以下来源中列出的事实进行回答。如果以下信息不足，请说明不知道。请勿使用以下来源之外的信息生成答案。如有需要，请向用户提出澄清问题。
+对于表格信息，请以HTML表格的形式返回。不要使用Markdown格式。如果问题不是英文，请用问题中使用的语言回答。
+在每个您在回答中引用的事实后面都要注明来源名称。用方括号表示来源，例如[info1.txt]。不要合并来源，分别列出每个来源，例如[info1.txt][info2.pdf]。
 {follow_up_questions_prompt}
 {injected_prompt}
 """
-    follow_up_questions_prompt_content = """Generate 3 very brief follow-up questions that the user would likely ask next.
-Enclose the follow-up questions in double angle brackets. Example:
-<<Are there exclusions for prescriptions?>>
-<<Which pharmacies can be ordered from?>>
-<<What is the limit for over-the-counter medication?>>
-Do no repeat questions that have already been asked.
-Make sure the last question ends with ">>"."""
+    follow_up_questions_prompt_content = """
+    生成3个非常简洁的后续问题，用户可能会接下来提问。
+用双尖括号括起后续问题。例如：
+<<有哪些药物排除在外？>>
+<<可以从哪些药店订购？>>
+<<非处方药的限额是多少？>>
+不要重复已经提过的问题。
+确保最后一个问题以“>>”结尾。
+    """
 
-    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base about employee healthcare plans and the employee handbook.
-You have access to Azure Cognitive Search index with 100's of documents.
-Generate a search query based on the conversation and the new question.
-Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
-Do not include any text inside [] or <<>> in the search query terms.
-Do not include any special characters like '+'.
-If the question is not in English, translate the question to English before generating the search query.
-If you cannot generate a search query, return just the number 0.
+    query_prompt_template = """下面是到目前为止的对话记录和用户提出的一个新问题，需要通过搜索关于劳动法律法规的知识库来回答。
+您可以访问Azure Cognitive Search索引中的数百个文档。
+根据对话和新问题生成一个搜索查询。
+在搜索查询中不要包括引用的来源文件名和文档名称，如info.txt或doc.pdf。
+在搜索查询中不要包括[]或<<>>内的文本。
+在搜索查询中不要包含任何特殊字符，如'+'。
+如果问题不是英文，请在生成搜索查询之前将问题翻译成英文。
+如果无法生成搜索查询，请返回数字0。
 """
     query_prompt_few_shots = [
-        {"role": USER, "content": "What are my health plans?"},
-        {"role": ASSISTANT, "content": "Show available health plans"},
-        {"role": USER, "content": "does my plan cover cardio?"},
-        {"role": ASSISTANT, "content": "Health plan cardio coverage"},
+        {"role": USER, "content": "我的劳动合同包含哪些内容？"},
+        {"role": ASSISTANT, "content": "显示劳动合同相关内容"},
+        {"role": USER, "content": "试用期有什么规定？"},
+        {"role": ASSISTANT, "content": "劳动合同试用期规定"},
     ]
 
     def __init__(
