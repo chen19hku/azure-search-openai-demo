@@ -3,15 +3,15 @@ import { Example } from "./Example";
 import styles from "./Example.module.css";
 
 const DEFAULT_EXAMPLES: string[] = [
-    "What is included in my Northwind Health Plus plan that is not in standard?",
-    "What happens in a performance review?",
-    "What does a Product Manager do?"
+    "What are the conditions, requirements, and procedures for transferring a listing from GEM to the Main Board?",
+    "How are casual vacancies in the Listing Review Committee filled, and what are the eligibility criteria for the replacement member? ",
+    "What are the approved methods for bringing securities to listing, aside from the initial public offering?"
 ];
 
 const GPT4V_EXAMPLES: string[] = [
-    "Compare the impact of interest rates and GDP in financial markets.",
-    "What is the expected trend for the S&P 500 index over the next five years? Compare it to the past S&P 500 performance",
-    "Can you identify any correlation between oil prices and stock market trends?"
+    "What are the conditions, requirements, and procedures for transferring a listing from GEM to the Main Board?",
+    "How are casual vacancies in the Listing Review Committee filled, and what are the eligibility criteria for the replacement member? ",
+    "What are the approved methods for bringing securities to listing, aside from the initial public offering?"
 ];
 
 interface Props {
