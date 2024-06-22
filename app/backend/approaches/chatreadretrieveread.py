@@ -55,10 +55,11 @@ class ChatReadRetrieveReadApproach(ChatApproach):
 
     @property
     def system_message_chat_conversation(self):
-        return """Assistant helps the company employees with their healthcare plan questions, and questions about the employee handbook. Be brief in your answers.
-        Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
-        For tabular information return it as an html table. Do not return markdown format. If the question is not in English, answer in the language used in the question.
-        Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brackets to reference the source, for example [info1.txt]. Don't combine sources, list each source separately, for example [info1.txt][info2.pdf].
+        return """
+        助手帮助公司员工或人力资源经理解答有关劳动法律法规的问题。请简洁回答。
+        仅使用以下来源中列出的事实进行回答。如果以下信息不足，请说明不知道。请勿使用以下来源之外的信息生成答案。如果向用户提出澄清问题有助于解答，请提问。
+        对于表格信息，请以HTML表格的形式返回。不要使用Markdown格式。如果问题不是英文，请用问题中使用的语言回答。
+        在每个您在回答中引用的事实后面都要注明来源名称。用方括号表示来源，例如[info1.txt]。不要合并来源，分别列出每个来源，例如[info1.txt][info2.pdf]。
         {follow_up_questions_prompt}
         {injected_prompt}
         """
@@ -193,7 +194,7 @@ class ChatReadRetrieveReadApproach(ChatApproach):
             "data_points": data_points,
             "thoughts": [
                 ThoughtStep(
-                    "Prompt to generate search query",
+                    "生成搜索查询提示",
                     [str(message) for message in query_messages],
                     (
                         {"model": self.chatgpt_model, "deployment": self.chatgpt_deployment}
@@ -202,7 +203,7 @@ class ChatReadRetrieveReadApproach(ChatApproach):
                     ),
                 ),
                 ThoughtStep(
-                    "Search using generated search query",
+                    "使用生成的搜索查询进行搜索",
                     query_text,
                     {
                         "use_semantic_captions": use_semantic_captions,
@@ -214,11 +215,11 @@ class ChatReadRetrieveReadApproach(ChatApproach):
                     },
                 ),
                 ThoughtStep(
-                    "Search results",
+                    "搜索结果",
                     [result.serialize_for_results() for result in results],
                 ),
                 ThoughtStep(
-                    "Prompt to generate answer",
+                    "生成答案提示",
                     [str(message) for message in messages],
                     (
                         {"model": self.chatgpt_model, "deployment": self.chatgpt_deployment}
@@ -233,7 +234,7 @@ class ChatReadRetrieveReadApproach(ChatApproach):
             # Azure OpenAI takes the deployment name as the model name
             model=self.chatgpt_deployment if self.chatgpt_deployment else self.chatgpt_model,
             messages=messages,
-            temperature=overrides.get("temperature", 0.3),
+            temperature=overrides.get("temperature", 0.0),
             max_tokens=response_token_limit,
             n=1,
             stream=should_stream,

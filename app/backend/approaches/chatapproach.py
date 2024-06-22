@@ -10,30 +10,30 @@ from approaches.approach import Approach
 
 class ChatApproach(Approach, ABC):
     query_prompt_few_shots: list[ChatCompletionMessageParam] = [
-        {"role": "user", "content": "How did crypto do last year?"},
-        {"role": "assistant", "content": "Summarize Cryptocurrency Market Dynamics from last year"},
-        {"role": "user", "content": "What are my health plans?"},
-        {"role": "assistant", "content": "Show available health plans"},
+        {"role": "user", "content": "我的劳动合同包含哪些内容？"},
+        {"role": "assistant", "content": "总结我的劳动合同相关内容"},
+        {"role": "user", "content": "试用期有什么规定？"},
+        {"role": "assistant", "content": "展示劳动合同试用期规定"},
     ]
     NO_RESPONSE = "0"
 
-    follow_up_questions_prompt_content = """Generate 3 very brief follow-up questions that the user would likely ask next.
-    Enclose the follow-up questions in double angle brackets. Example:
-    <<Are there exclusions for prescriptions?>>
-    <<Which pharmacies can be ordered from?>>
-    <<What is the limit for over-the-counter medication?>>
-    Do no repeat questions that have already been asked.
-    Make sure the last question ends with ">>".
+    follow_up_questions_prompt_content = """生成用户接下来可能会问的3个非常简短的后续问题。
+    用双尖括号括起后续问题。示例：
+    <<处方药是否有排除项？>>
+    <<可以从哪些药店订购？>>
+    <<非处方药的限额是多少？>>
+    不要重复已经提过的问题。
+    确保最后一个问题以“>>”结尾。
     """
 
-    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base.
-    You have access to Azure AI Search index with 100's of documents.
-    Generate a search query based on the conversation and the new question.
-    Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
-    Do not include any text inside [] or <<>> in the search query terms.
-    Do not include any special characters like '+'.
-    If the question is not in English, translate the question to English before generating the search query.
-    If you cannot generate a search query, return just the number 0.
+    query_prompt_template = """在以下对话历史中，用户提出了一个新问题，需要在知识库中进行搜索回答。
+    您可以访问包含数百份文档的Azure AI搜索索引。
+    根据对话和新问题生成搜索查询。
+    搜索查询词中不要包含引用的源文件名和文档名，如info.txt或doc.pdf。
+    搜索查询词中不要包含[]或<<>>内的任何文本。
+    不要包含任何特殊字符，如'+'。
+    如果问题不是简体中文，请将问题翻译成简体中文后再生成搜索查询。
+    如果无法生成搜索查询，请返回数字0。
     """
 
     @property

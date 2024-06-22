@@ -340,8 +340,8 @@ const Chat = () => {
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
+                            <h1 className={styles.chatEmptyStateTitle}>劳法智问</h1>
+                            <h2 className={styles.chatEmptyStateSubtitle}>随意提问或尝试一个示例</h2>
                             <ExampleList onExampleClicked={onExampleClicked} useGPT4V={useGPT4V} />
                         </div>
                     ) : (
@@ -413,7 +413,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
+                            placeholder="请输入您的问题 (例如，公司可以随意解雇员工吗？)"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
                             showSpeechInput={showSpeechInput}
@@ -433,19 +433,19 @@ const Chat = () => {
                 )}
 
                 <Panel
-                    headerText="Configure answer generation"
+                    headerText="设置答案生成"
                     isOpen={isConfigPanelOpen}
                     isBlocking={false}
                     onDismiss={() => setIsConfigPanelOpen(false)}
-                    closeButtonAriaLabel="Close"
-                    onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
+                    closeButtonAriaLabel="关闭"
+                    onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>关闭</DefaultButton>}
                     isFooterAtBottom={true}
                 >
                     <TextField
                         id={promptTemplateFieldId}
                         className={styles.chatSettingsSeparator}
                         defaultValue={promptTemplate}
-                        label="Override prompt template"
+                        label="设置提示模板"
                         multiline
                         autoAdjustHeight
                         onChange={onPromptTemplateChange}
@@ -463,7 +463,7 @@ const Chat = () => {
                     <TextField
                         id={temperatureFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Temperature"
+                        label="温度"
                         type="number"
                         min={0}
                         max={1}
@@ -479,7 +479,7 @@ const Chat = () => {
                     <TextField
                         id={searchScoreFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Minimum search score"
+                        label="最低搜索得分"
                         type="number"
                         min={0}
                         step={0.01}
@@ -495,7 +495,7 @@ const Chat = () => {
                         <TextField
                             id={rerankerScoreFieldId}
                             className={styles.chatSettingsSeparator}
-                            label="Minimum reranker score"
+                            label="最低重新排名得分"
                             type="number"
                             min={1}
                             max={4}
@@ -517,7 +517,7 @@ const Chat = () => {
                     <TextField
                         id={retrieveCountFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Retrieve this many search results:"
+                        label="检索搜索结果的数量"
                         type="number"
                         min={1}
                         max={50}
@@ -532,7 +532,7 @@ const Chat = () => {
                     <TextField
                         id={excludeCategoryFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Exclude category"
+                        label="排除类别"
                         defaultValue={excludeCategory}
                         onChange={onExcludeCategoryChanged}
                         aria-labelledby={excludeCategoryId}
@@ -552,7 +552,7 @@ const Chat = () => {
                                 id={semanticRankerFieldId}
                                 className={styles.chatSettingsSeparator}
                                 checked={useSemanticRanker}
-                                label="Use semantic ranker for retrieval"
+                                label="使用语义排名器进行检索"
                                 onChange={onUseSemanticRankerChange}
                                 aria-labelledby={semanticRankerId}
                                 onRenderLabel={(props: ICheckboxProps | undefined) => (
@@ -569,7 +569,7 @@ const Chat = () => {
                                 id={semanticCaptionsFieldId}
                                 className={styles.chatSettingsSeparator}
                                 checked={useSemanticCaptions}
-                                label="Use semantic captions"
+                                label="使用语义标题"
                                 onChange={onUseSemanticCaptionsChange}
                                 disabled={!useSemanticRanker}
                                 aria-labelledby={semanticCaptionsId}
@@ -589,7 +589,7 @@ const Chat = () => {
                         id={suggestFollowupQuestionsFieldId}
                         className={styles.chatSettingsSeparator}
                         checked={useSuggestFollowupQuestions}
-                        label="Suggest follow-up questions"
+                        label="建议后续问题"
                         onChange={onUseSuggestFollowupQuestionsChange}
                         aria-labelledby={suggestFollowupQuestionsId}
                         onRenderLabel={(props: ICheckboxProps | undefined) => (
@@ -628,7 +628,7 @@ const Chat = () => {
                                 id={useOidSecurityFilterFieldId}
                                 className={styles.chatSettingsSeparator}
                                 checked={useOidSecurityFilter || requireAccessControl}
-                                label="Use oid security filter"
+                                label="使用oid安全过滤器"
                                 disabled={!isLoggedIn(client) || requireAccessControl}
                                 onChange={onUseOidSecurityFilterChange}
                                 aria-labelledby={useOidSecurityFilterId}
@@ -645,7 +645,7 @@ const Chat = () => {
                                 id={useGroupsSecurityFilterFieldId}
                                 className={styles.chatSettingsSeparator}
                                 checked={useGroupsSecurityFilter || requireAccessControl}
-                                label="Use groups security filter"
+                                label="使用群组安全过滤器"
                                 disabled={!isLoggedIn(client) || requireAccessControl}
                                 onChange={onUseGroupsSecurityFilterChange}
                                 aria-labelledby={useGroupsSecurityFilterId}
@@ -665,7 +665,7 @@ const Chat = () => {
                         id={shouldStreamFieldId}
                         className={styles.chatSettingsSeparator}
                         checked={shouldStream}
-                        label="Stream chat completion responses"
+                        label="流式聊天输出"
                         onChange={onShouldStreamChange}
                         aria-labelledby={shouldStreamId}
                         onRenderLabel={(props: ICheckboxProps | undefined) => (

@@ -2,16 +2,12 @@ import { Example } from "./Example";
 
 import styles from "./Example.module.css";
 
-const DEFAULT_EXAMPLES: string[] = [
-    "What is included in my Northwind Health Plus plan that is not in standard?",
-    "What happens in a performance review?",
-    "What does a Product Manager do?"
-];
+const DEFAULT_EXAMPLES: string[] = ["公司可以与员工签订竞业禁止协议吗？", "公司可以要求员工加班吗？", "劳动争议如何申诉和解决？"];
 
 const GPT4V_EXAMPLES: string[] = [
-    "Compare the impact of interest rates and GDP in financial markets.",
-    "What is the expected trend for the S&P 500 index over the next five years? Compare it to the past S&P 500 performance",
-    "Can you identify any correlation between oil prices and stock market trends?"
+    "比较利率和GDP对金融市场的影响。",
+    "预计未来五年S&P 500指数的走势如何？将其与过去的S&P 500表现进行比较。",
+    "你能否找出石油价格和股市趋势之间的任何相关性？"
 ];
 
 interface Props {

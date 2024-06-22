@@ -228,10 +228,10 @@ export function Component(): JSX.Element {
                     {showUserUpload && <UploadFile className={styles.commandButton} disabled={!isLoggedIn(client)} />}
                     <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
                 </div>
-                <h1 className={styles.askTitle}>Ask your data</h1>
+                <h1 className={styles.askTitle}>劳法智问</h1>
                 <div className={styles.askQuestionInput}>
                     <QuestionInput
-                        placeholder="Example: Does my plan cover annual eye exams?"
+                        placeholder="示例：试用期期间解除劳动合同有哪些规定？"
                         disabled={isLoading}
                         initQuestion={question}
                         onSend={question => makeApiRequest(question)}
@@ -240,7 +240,7 @@ export function Component(): JSX.Element {
                 </div>
             </div>
             <div className={styles.askBottomSection}>
-                {isLoading && <Spinner label="Generating answer" />}
+                {isLoading && <Spinner label="生成答案" />}
                 {!lastQuestionRef.current && <ExampleList onExampleClicked={onExampleClicked} useGPT4V={useGPT4V} />}
                 {!isLoading && answer && !error && (
                     <div className={styles.askAnswerContainer}>
@@ -274,19 +274,19 @@ export function Component(): JSX.Element {
             </div>
 
             <Panel
-                headerText="Configure answer generation"
+                headerText="设置答案生成"
                 isOpen={isConfigPanelOpen}
                 isBlocking={false}
                 onDismiss={() => setIsConfigPanelOpen(false)}
-                closeButtonAriaLabel="Close"
-                onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
+                closeButtonAriaLabel="关闭"
+                onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>关闭</DefaultButton>}
                 isFooterAtBottom={true}
             >
                 <TextField
                     id={promptTemplateFieldId}
                     className={styles.chatSettingsSeparator}
                     defaultValue={promptTemplate}
-                    label="Override prompt template"
+                    label="设置提示模板"
                     multiline
                     autoAdjustHeight
                     onChange={onPromptTemplateChange}
@@ -299,7 +299,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={temperatureFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Temperature"
+                    label="温度"
                     type="number"
                     min={0}
                     max={1}
@@ -315,7 +315,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={searchScoreFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Minimum search score"
+                    label="最低搜索得分"
                     type="number"
                     min={0}
                     step={0.01}
@@ -331,7 +331,7 @@ export function Component(): JSX.Element {
                     <TextField
                         id={rerankerScoreFieldId}
                         className={styles.chatSettingsSeparator}
-                        label="Minimum reranker score"
+                        label="最低重新排名得分"
                         type="number"
                         min={1}
                         max={4}
@@ -348,7 +348,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={retrieveCountFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Retrieve this many search results:"
+                    label="检索搜索结果的数量"
                     type="number"
                     min={1}
                     max={50}
@@ -363,7 +363,7 @@ export function Component(): JSX.Element {
                 <TextField
                     id={excludeCategoryFieldId}
                     className={styles.chatSettingsSeparator}
-                    label="Exclude category"
+                    label="排除类别"
                     defaultValue={excludeCategory}
                     onChange={onExcludeCategoryChanged}
                     aria-labelledby={excludeCategoryId}
@@ -378,7 +378,7 @@ export function Component(): JSX.Element {
                             id={semanticRankerFieldId}
                             className={styles.chatSettingsSeparator}
                             checked={useSemanticRanker}
-                            label="Use semantic ranker for retrieval"
+                            label="使用语义排名器进行检索"
                             onChange={onUseSemanticRankerChange}
                             aria-labelledby={semanticRankerId}
                             onRenderLabel={(props: ICheckboxProps | undefined) => (
@@ -395,7 +395,7 @@ export function Component(): JSX.Element {
                             id={semanticCaptionsFieldId}
                             className={styles.chatSettingsSeparator}
                             checked={useSemanticCaptions}
-                            label="Use semantic captions"
+                            label="使用语义标题"
                             onChange={onUseSemanticCaptionsChange}
                             disabled={!useSemanticRanker}
                             aria-labelledby={semanticCaptionsId}
@@ -437,7 +437,7 @@ export function Component(): JSX.Element {
                             id={useOidSecurityFilterFieldId}
                             className={styles.chatSettingsSeparator}
                             checked={useOidSecurityFilter || requireAccessControl}
-                            label="Use oid security filter"
+                            label="使用oid安全过滤器"
                             disabled={!isLoggedIn(client) || requireAccessControl}
                             onChange={onUseOidSecurityFilterChange}
                             aria-labelledby={useOidSecurityFilterId}
@@ -454,7 +454,7 @@ export function Component(): JSX.Element {
                             id={useGroupsSecurityFilterFieldId}
                             className={styles.chatSettingsSeparator}
                             checked={useGroupsSecurityFilter || requireAccessControl}
-                            label="Use groups security filter"
+                            label="使用群组安全过滤器"
                             disabled={!isLoggedIn(client) || requireAccessControl}
                             onChange={onUseGroupsSecurityFilterChange}
                             aria-labelledby={useGroupsSecurityFilterId}

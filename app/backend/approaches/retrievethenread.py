@@ -18,25 +18,24 @@ class RetrieveThenReadApproach(Approach):
     """
 
     system_chat_template = (
-        "You are an intelligent assistant helping Contoso Inc employees with their healthcare plan questions and employee handbook questions. "
-        + "Use 'you' to refer to the individual asking the questions even if they ask with 'I'. "
-        + "Answer the following question using only the data provided in the sources below. "
-        + "For tabular information return it as an html table. Do not return markdown format. "
-        + "Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. "
-        + "If you cannot answer using the sources below, say you don't know. Use below example to answer"
+        "Y您是一个智能助手，负责帮助人们解答关于中国劳动法律法规的问题。"
+        + "即使提问者用'我'提问，请使用'您'指代提问的个人。"
+        + "仅使用以下来源中提供的数据回答以下问题。 "
+        + "对于表格信息，请以html表格形式返回。不要返回markdown格式。 "
+        + "每个来源的名称后跟冒号和实际信息，请在回答中始终包含您在回答中使用的每个事实的来源名称。"
+        + "如果您不能使用以下来源回答问题，请说不知道。参考以下示例进行回答。"
     )
 
     # shots/sample conversation
     question = """
-'What is the deductible for the employee plan for a visit to Overlake in Bellevue?'
+'根据中国劳动法，允许的加班时间最长是多少小时？'
 
-Sources:
-info1.txt: deductibles depend on whether you are in-network or out-of-network. In-network deductibles are $500 for employee and $1000 for family. Out-of-network deductibles are $1000 for employee and $2000 for family.
-info2.pdf: Overlake is in-network for the employee plan.
-info3.pdf: Overlake is the name of the area that includes a park and ride near Bellevue.
-info4.pdf: In-network institutions include Overlake, Swedish and others in the region
+来源:
+劳动部关于职工工作时间有关问题的复函.pdf: 中国劳动法规定，加班时间不得超过每月36小时。
+广东省工资支付条例2016修正.pdf: 加班工资必须按照额外费率支付，即工作日按照员工正常工资的150%支付，周末按200%支付，公共假日按300%支付。
+职工带薪年休假条例.pdf: 在中国，员工根据工龄享有5至15天的带薪年假。
 """
-    answer = "In-network deductibles are $500 for employee and $1000 for family [info1.txt] and Overlake is in-network for the employee plan [info2.pdf][info4.pdf]."
+    answer = "根据中国劳动法，加班时间不得超过每月36小时 [劳动部关于职工工作时间有关问题的复函.pdf]。"
 
     def __init__(
         self,

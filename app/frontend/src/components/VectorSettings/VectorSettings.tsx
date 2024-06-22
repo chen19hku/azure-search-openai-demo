@@ -43,12 +43,12 @@ export const VectorSettings = ({ updateRetrievalMode, updateVectorFields, showIm
         <Stack className={styles.container} tokens={{ childrenGap: 10 }}>
             <Dropdown
                 id={retrievalModeFieldId}
-                label="Retrieval mode"
+                label="检索模式"
                 selectedKey={defaultRetrievalMode.toString()}
                 options={[
-                    { key: "hybrid", text: "Vectors + Text (Hybrid)", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
-                    { key: "vectors", text: "Vectors", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
-                    { key: "text", text: "Text", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text }
+                    { key: "hybrid", text: "向量 + 文本（混合）", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
+                    { key: "vectors", text: "向量", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
+                    { key: "text", text: "文本", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text }
                 ]}
                 required
                 onChange={onRetrievalModeChange}
@@ -61,11 +61,11 @@ export const VectorSettings = ({ updateRetrievalMode, updateVectorFields, showIm
             {showImageOptions && [RetrievalMode.Vectors, RetrievalMode.Hybrid].includes(retrievalMode) && (
                 <Dropdown
                     id={vectorFieldsFieldId}
-                    label="Vector fields (Multi-query vector search)"
+                    label="向量字段（多查询向量搜索）"
                     options={[
-                        { key: VectorFieldOptions.Embedding, text: "Text Embeddings", selected: vectorFieldOption === VectorFieldOptions.Embedding },
-                        { key: VectorFieldOptions.ImageEmbedding, text: "Image Embeddings", selected: vectorFieldOption === VectorFieldOptions.ImageEmbedding },
-                        { key: VectorFieldOptions.Both, text: "Text and Image embeddings", selected: vectorFieldOption === VectorFieldOptions.Both }
+                        { key: VectorFieldOptions.Embedding, text: "文本嵌入", selected: vectorFieldOption === VectorFieldOptions.Embedding },
+                        { key: VectorFieldOptions.ImageEmbedding, text: "图像嵌入", selected: vectorFieldOption === VectorFieldOptions.ImageEmbedding },
+                        { key: VectorFieldOptions.Both, text: "文本和图像嵌入", selected: vectorFieldOption === VectorFieldOptions.Both }
                     ]}
                     onChange={onVectorFieldsChange}
                     aria-labelledby={vectorFieldsId}
